@@ -32,27 +32,15 @@ var getEmptyArr = function getEmptyArr() {};
 
 var withOptions = function withOptions(OptionType, getType) {
   return function (Component) {
-    var _class, _temp2;
+    var _class, _temp;
 
-    return _temp2 = _class = function (_React$PureComponent) {
+    return _temp = _class = function (_React$PureComponent) {
       _inherits(_class, _React$PureComponent);
 
       function _class() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
         _classCallCheck(this, _class);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.initContainerRef = function (r) {
-          _this.container = r;
-        }, _this.getContainerRef = function () {
-          return _this.container;
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
       }
 
       _createClass(_class, [{
@@ -69,24 +57,19 @@ var withOptions = function withOptions(OptionType, getType) {
           var options = props[optionsKey] || getEmptyArr();
 
           return _react2.default.createElement(
-            "div",
-            null,
-            _react2.default.createElement("div", { ref: this.initContainerRef }),
-            _react2.default.createElement(
-              Component,
-              _extends({ getPopupContainer: this.getContainerRef }, props),
-              options.map(function (_ref2, key) {
-                var value = _ref2[valueKey],
-                    label = _ref2[labelKey],
-                    rest = _objectWithoutProperties(_ref2, [valueKey, labelKey]);
+            Component,
+            props,
+            options.map(function (_ref, key) {
+              var value = _ref[valueKey],
+                  label = _ref[labelKey],
+                  rest = _objectWithoutProperties(_ref, [valueKey, labelKey]);
 
-                return _react2.default.createElement(
-                  OptionType,
-                  _extends({}, rest, { key: key, value: String(value) }),
-                  label
-                );
-              })
-            )
+              return _react2.default.createElement(
+                OptionType,
+                _extends({}, rest, { key: key, value: String(value) }),
+                label
+              );
+            })
           );
         }
       }]);
@@ -96,12 +79,12 @@ var withOptions = function withOptions(OptionType, getType) {
       valueKey: "value",
       labelKey: "label",
       optionsKey: "options"
-    }, _temp2;
+    }, _temp;
   };
 };
 
-var RadioField = exports.RadioField = withOptions(null, function (_ref3) {
-  var button = _ref3.button;
+var RadioField = exports.RadioField = withOptions(null, function (_ref2) {
+  var button = _ref2.button;
   return button ? RadioButton : _antd.Radio;
 })(RadioGroup);
 var SelectField = exports.SelectField = withOptions(Option)(_antd.Select);

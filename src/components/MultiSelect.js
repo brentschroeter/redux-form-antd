@@ -14,12 +14,6 @@ const withOptions = (OptionType, getType) => Component =>
       optionsKey: "options"
     };
 
-    initContainerRef = r => {
-      this.container = r;
-    };
-    getContainerRef = () => {
-      return this.container;
-    };
     render() {
       const props = this.props;
 
@@ -32,16 +26,13 @@ const withOptions = (OptionType, getType) => Component =>
       const options = props[optionsKey] || getEmptyArr();
 
       return (
-        <div>
-          <div ref={this.initContainerRef} />
-          <Component getPopupContainer={this.getContainerRef} {...props}>
-            {options.map(({ [valueKey]: value, [labelKey]: label, ...rest }, key) => (
-              <OptionType {...rest} key={key} value={String(value)}>
-                {label}
-              </OptionType>
-            ))}
-          </Component>
-        </div>
+        <Component {...props}>
+          {options.map(({ [valueKey]: value, [labelKey]: label, ...rest }, key) => (
+            <OptionType {...rest} key={key} value={String(value)}>
+              {label}
+            </OptionType>
+          ))}
+        </Component>
       );
     }
   };
